@@ -8,7 +8,7 @@ const sampleEvents = [
     id: "evt-1",
     type: "pump-on",
     description: "Pump turned ON due to low water level",
-    timestamp: "2023-06-15T08:30:00",
+    timestamp: "2024-06-15T08:30:00",
     details: "Water level was at 18% and pump was activated automatically"
   },
   {
