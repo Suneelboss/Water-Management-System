@@ -26,7 +26,7 @@ export default function LeakageStatus({
           <p className="mt-4 text-sm text-gray-500">Checking system for leaks...</p>
         </div>
       ) : (
-        <div className="border border-red-400 rounded-xl p-1">
+        <div className=" rounded-xl p-1">
           <div className={`p-5 rounded-lg  sm:p-6 ${hasLeak ? "bg-red-50 " : ""}`}>
             <div className="flex justify-between items-start">
               <div>
