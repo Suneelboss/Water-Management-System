@@ -38,7 +38,7 @@ const Sidebar = () => {
             <div className="water-wave" />
             <Droplet className="h-5 w-5 m-auto" />
           </div>
-          <span className="text-lg font-medium">AquaSentry</span>
+          <span className="text-lg font-medium">AquaControl</span>
         </a>
       </div>
 
@@ -51,7 +51,7 @@ const Sidebar = () => {
       
       <div className="mt-auto pt-4 border-t">
         <div className="px-3 text-xs text-gray-500">
-          © 2023 AquaSentry
+          © 2025 AquaControl
         </div>
       </div>
     </div>

@@ -14,13 +14,13 @@ const Profile = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [profileImage, setProfileImage] = useState("/placeholder.svg");
   const [formData, setFormData] = useState({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "+1 (555) 123-4567",
-    address: "123 Main Street, Anytown, USA",
+    name: "Sunil Adhikari",
+    email: "suniladhikari580@gmail.com",
+    phone: "+9779840379646",
+    address: "Kadaghari,Forcepark",
     deviceId: "WMS-21345-XZ",
     whatsappNotify: true,
-    bio: "I'm a homeowner who uses AquaSentry to monitor my water system."
+    bio: "I'm a homeowner who uses Aquacontrol to monitor my water system."
   });
 
   // Handle profile image upload
