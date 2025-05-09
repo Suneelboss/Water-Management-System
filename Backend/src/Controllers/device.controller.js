@@ -67,4 +67,28 @@ export const togglePump = async (req, res) => {
   }
 };
 
+export const addController = async (req, res) => {
+  try {
+    const { name, address } = req.body;
 
+    const controller = new Device({
+      owner: req.user._id,
+      name,
+      address,
+      waterLevel: 0,
+      pumpStatus: false,
+      dryRunProtection: true,
+      leakageDetected: false,
+      autoMode: true,
+      tankHeight,
+      dryRunDelay,
+    });
+
+    await controller.save();
+    res
+      .status(201)
+      .json({ message: "Controller added successfully!", controller });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
