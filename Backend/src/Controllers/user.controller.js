@@ -46,7 +46,7 @@ export const getUserWaterUsage = async (req, res) => {
 
 function getStartDate(period) {
   const now = new Date();
-  if (period === "daily") return new Date(now.setHours(0, 0, 0, 0));
+  
   if (period === "weekly") return new Date(now.setDate(now.getDate() - 7));
   if (period === "monthly") return new Date(now.setMonth(now.getMonth() - 1));
   if (period === "yearly")

@@ -4,7 +4,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Upload,
   Save,
   AlertTriangle
 } from "lucide-react";
@@ -12,7 +11,6 @@ import Sidebar from "../Components/Sidebar";
 
 const Profile = () => {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [profileImage, setProfileImage] = useState("/placeholder.svg");
   const [formData, setFormData] = useState({
     name: "Sunil Adhikari",
     email: "suniladhikari580@gmail.com",
@@ -22,20 +20,6 @@ const Profile = () => {
     whatsappNotify: true,
     bio: "I'm a homeowner who uses Aquacontrol to monitor my water system."
   });
-
-  // Handle profile image upload
-  const handleImageUpload = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          setProfileImage(event.target.result);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   // Handle form change
   const handleInputChange = (e) => {
@@ -57,13 +41,8 @@ const Profile = () => {
 
   // Handle save profile
   const handleSaveProfile = () => {
-    // In a real application, this would send the profile data to a backend
     console.log("Saving profile:", formData);
-
-    // Toggle edit mode off
     setIsEditMode(false);
-
-    // Show success message to user
     alert("Profile updated successfully!");
   };
 
@@ -77,11 +56,19 @@ const Profile = () => {
             <div className="flex justify-between items-center">
               <div>
                 <h1 className="text-2xl font-semibold">User Profile</h1>
-                <p className="text-gray-500 text-sm mt-1">Manage your personal information and notification preferences</p>
+                <p className="text-gray-500 text-sm mt-1">
+                  Manage your personal information and notification preferences
+                </p>
               </div>
               <button
-                className={`px-4 py-2 flex items-center text-sm font-medium ${isEditMode ? "rounded-full bg-water-600 text-white px-6 py-2.5 font-medium transition-all duration-300 hover:shadow-button-hover hover:translate-y-[-2px] active:translate-y-[0px] active:shadow-button focus:outline-none focus:ring-2 focus:ring-water-500 focus:ring-offset-2" : "rounded-full bg-transparent text-water-600 px-6 py-2.5 font-medium border border-water-500/30 transition-all duration-300 hover:bg-water-600/10 hover:border-water-500/50 active:bg-water-600/20 focus:outline-none focus:ring-2 focus:ring-water-500 focus:ring-offset-2"}`}
-                onClick={() => isEditMode ? handleSaveProfile() : setIsEditMode(true)}
+                className={`px-4 py-2 flex items-center text-sm font-medium ${
+                  isEditMode
+                    ? "rounded-full bg-water-600 text-white px-6 py-2.5 transition-all duration-300 hover:shadow-button-hover"
+                    : "rounded-full bg-transparent text-water-600 px-6 py-2.5 border border-water-500/30 transition-all duration-300 hover:bg-water-600/10"
+                }`}
+                onClick={() =>
+                  isEditMode ? handleSaveProfile() : setIsEditMode(true)
+                }
               >
                 {isEditMode ? (
                   <>
@@ -101,36 +88,21 @@ const Profile = () => {
             <div className="bg-white rounded-lg p-8 shadow-gray-300 border shadow-lg">
               <div className="flex flex-col md:flex-row gap-8 items-start">
                 <div className="flex flex-col items-center space-y-4">
-                  <div className="relative h-32 w-32 rounded-full overflow-hidden bg-gray-100">
+                  <div className="h-32 w-32 rounded-full overflow-hidden bg-gray-100">
                     <img
-                      src={profileImage}
+                      src="/images/default-avatar.png"
                       alt="Profile"
                       className="h-full w-full object-cover"
                     />
-                    {isEditMode && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-                        <label className="cursor-pointer p-2 rounded-full bg-white/30 hover:bg-white/50 transition-colors">
-                          <Upload className="h-5 w-5 text-white" />
-                          <input
-                            type="file"
-                            accept="image/*"
-                            className="hidden"
-                            onChange={handleImageUpload}
-                          />
-                        </label>
-                      </div>
-                    )}
                   </div>
-                  {isEditMode && (
-                    <p className="text-xs text-gray-500">
-                      Click to upload a new photo
-                    </p>
-                  )}
                 </div>
 
                 <div className="flex-1 space-y-4">
+                  {/* Name */}
                   <div className="space-y-1">
-                    <label htmlFor="name" className="text-sm font-medium">Full Name</label>
+                    <label htmlFor="name" className="text-sm font-medium">
+                      Full Name
+                    </label>
                     <div className="flex items-center">
                       <User className="h-4 w-4 text-gray-500 mr-2" />
                       <input
@@ -139,13 +111,20 @@ const Profile = () => {
                         value={formData.name}
                         onChange={handleInputChange}
                         disabled={!isEditMode}
-                        className={`w-full px-3 py-2 text-sm rounded-md ${!isEditMode ? "bg-[#f1f5f9] text-gray-500" : "border border-gray-300"}`}
+                        className={`w-full px-3 py-2 text-sm rounded-md ${
+                          !isEditMode
+                            ? "bg-[#f1f5f9] text-gray-500"
+                            : "border border-gray-300"
+                        }`}
                       />
                     </div>
                   </div>
 
+                  {/* Email */}
                   <div className="space-y-1">
-                    <label htmlFor="email" className="text-sm font-medium">Email Address</label>
+                    <label htmlFor="email" className="text-sm font-medium">
+                      Email Address
+                    </label>
                     <div className="flex items-center">
                       <Mail className="h-4 w-4 text-gray-400 mr-2" />
                       <input
@@ -155,13 +134,20 @@ const Profile = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         disabled={!isEditMode}
-                        className={`w-full px-3 py-2 text-sm rounded-md ${!isEditMode ? "bg-[#f1f5f9] text-gray-500" : "border border-gray-300"}`}
+                        className={`w-full px-3 py-2 text-sm rounded-md ${
+                          !isEditMode
+                            ? "bg-[#f1f5f9] text-gray-500"
+                            : "border border-gray-300"
+                        }`}
                       />
                     </div>
                   </div>
 
+                  {/* Phone & WhatsApp */}
                   <div className="space-y-1">
-                    <label htmlFor="phone" className="text-sm font-medium">WhatsApp Phone Number</label>
+                    <label htmlFor="phone" className="text-sm font-medium">
+                      WhatsApp Phone Number
+                    </label>
                     <div className="flex items-center">
                       <Phone className="h-4 w-4 text-gray-400 mr-2" />
                       <input
@@ -170,7 +156,11 @@ const Profile = () => {
                         value={formData.phone}
                         onChange={handleInputChange}
                         disabled={!isEditMode}
-                        className={`w-full px-3 py-2 text-sm rounded-md ${!isEditMode ? "bg-[#f1f5f9] text-gray-500" : "border border-gray-300"}`}
+                        className={`w-full px-3 py-2 text-sm rounded-md ${
+                          !isEditMode
+                            ? "bg-[#f1f5f9] text-gray-500"
+                            : "border border-gray-300"
+                        }`}
                       />
                     </div>
                     <div className="flex items-center mt-2">
@@ -183,7 +173,10 @@ const Profile = () => {
                         disabled={!isEditMode}
                         className="h-4 w-4 text-blue-600 rounded border-gray-300"
                       />
-                      <label htmlFor="whatsappNotify" className="ml-2 text-sm text-gray-500">
+                      <label
+                        htmlFor="whatsappNotify"
+                        className="ml-2 text-sm text-gray-500"
+                      >
                         Receive WhatsApp notifications for alerts
                       </label>
                     </div>
@@ -195,11 +188,14 @@ const Profile = () => {
             {/* Additional information */}
             <div className="bg-white rounded-lg p-6 shadow-gray-300 border shadow-lg">
               <h2 className="text-lg font-medium mb-4">Additional Information</h2>
-              <div className="h-px w-full bg-gray-200 mb-6"></div> {/* Separator */}
+              <div className="h-px w-full bg-gray-200 mb-6"></div>
 
               <div className="space-y-6">
+                {/* Address */}
                 <div className="space-y-1">
-                  <label htmlFor="address" className="text-sm font-medium">Address</label>
+                  <label htmlFor="address" className="text-sm font-medium">
+                    Address
+                  </label>
                   <div className="flex items-start">
                     <MapPin className="h-4 w-4 text-gray-400 mr-2 mt-3" />
                     <textarea
@@ -208,14 +204,21 @@ const Profile = () => {
                       value={formData.address}
                       onChange={handleInputChange}
                       disabled={!isEditMode}
-                      className={`w-full px-3 py-2 rounded-md ${!isEditMode ? "bg-[#f1f5f9] text-gray-500" : "border border-gray-300"}`}
+                      className={`w-full px-3 py-2 rounded-md ${
+                        !isEditMode
+                          ? "bg-[#f1f5f9] text-gray-500"
+                          : "border border-gray-300"
+                      }`}
                       rows={2}
                     />
                   </div>
                 </div>
 
+                {/* Device ID */}
                 <div className="space-y-1">
-                  <label htmlFor="deviceId" className="text-sm font-medium">Device ID</label>
+                  <label htmlFor="deviceId" className="text-sm font-medium">
+                    Device ID
+                  </label>
                   <div className="flex items-center">
                     <AlertTriangle className="h-4 w-4 text-gray-400 mr-2" />
                     <input
@@ -224,7 +227,11 @@ const Profile = () => {
                       value={formData.deviceId}
                       onChange={handleInputChange}
                       disabled={!isEditMode}
-                      className={`w-full px-3 py-2 text-sm rounded-md ${!isEditMode ? "bg-[#f1f5f9] text-gray-500" : "border border-gray-300"}`}
+                      className={`w-full px-3 py-2 text-sm rounded-md ${
+                        !isEditMode
+                          ? "bg-[#f1f5f9] text-gray-500"
+                          : "border border-gray-300"
+                      }`}
                     />
                   </div>
                   <p className="text-xs text-gray-500 mt-1">
@@ -232,15 +239,22 @@ const Profile = () => {
                   </p>
                 </div>
 
+                {/* Bio */}
                 <div className="space-y-1">
-                  <label htmlFor="bio" className="text-sm font-medium">About</label>
+                  <label htmlFor="bio" className="text-sm font-medium">
+                    About
+                  </label>
                   <textarea
                     id="bio"
                     name="bio"
                     value={formData.bio}
                     onChange={handleInputChange}
                     disabled={!isEditMode}
-                    className={`w-full px-3 py-2 rounded-md ${!isEditMode ? "bg-[#f1f5f9] text-gray-500" : "border border-gray-300"}`}
+                    className={`w-full px-3 py-2 rounded-md ${
+                      !isEditMode
+                        ? "bg-[#f1f5f9] text-gray-500"
+                        : "border border-gray-300"
+                    }`}
                     rows={4}
                   />
                 </div>
@@ -253,17 +267,16 @@ const Profile = () => {
               <p className="text-sm text-red-500 mb-4">
                 These actions are irreversible. Please proceed with caution.
               </p>
-
               <div className="space-x-4">
                 <button className="px-4 py-2 bg-white border border-red-300 rounded-md text-red-500 text-sm font-medium hover:bg-red-50 transition-colors">
                   Reset System Configuration
                 </button>
-
                 <button className="px-4 py-2 bg-white border border-red-300 rounded-md text-red-500 text-sm font-medium hover:bg-red-50 transition-colors">
                   Delete Account
                 </button>
               </div>
             </div>
+
           </div>
         </div>
       </div>
